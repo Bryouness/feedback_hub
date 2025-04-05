@@ -3,6 +3,9 @@ package com.example.feedback_hub.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 @Data //
@@ -22,4 +25,16 @@ public class User {
 
     @Column(nullable = false)
     private String role; // ex: "USER" ou "ADMIN"
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Feedback> feedbacks = new ArrayList<>();
+    
+    public User(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.feedbacks = new ArrayList<>();
+    }
 }
+
+
