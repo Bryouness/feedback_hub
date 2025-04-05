@@ -1,5 +1,6 @@
 package com.example.feedback_hub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,7 @@ public class User {
     @Column(nullable = false)
     private String role; // ex: "USER" ou "ADMIN"
 
+    @JsonIgnoreProperties("user")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Feedback> feedbacks = new ArrayList<>();
     

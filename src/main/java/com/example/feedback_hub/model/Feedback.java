@@ -1,5 +1,6 @@
 package com.example.feedback_hub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -38,6 +39,7 @@ public class Feedback {
     private LocalDateTime updatedAt;
 
 
+    @JsonIgnoreProperties("feedbacks")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
