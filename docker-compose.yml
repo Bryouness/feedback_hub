@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/feedback_db
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=Lavazza=2012
+    depends_on:
+      - db
+    networks:
+      - feedback-network
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_DATABASE=feedback_db
+      - MYSQL_ROOT_PASSWORD=Lavazza=2012
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - feedback-network
+
+volumes:
+  mysql-data:
+
+networks:
+  feedback-network:
+    driver: bridge 
